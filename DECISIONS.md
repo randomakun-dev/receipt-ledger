@@ -1,0 +1,11 @@
+# Decisions
+- Python 3.10+, no runtime dependencies; CLI first, entirely offline.
+- Canonical input only: date,description,amount. Not a native BCA/Mandiri/GoPay adapter. Bank layouts and regional numbers must be normalized explicitly rather than guessed.
+- Dates YYYY-MM-DD; amounts decimal with dot, at most two places. Positive income, negative expenses. One currency per invocation, no currency conversion.
+- Files are deduplicated by resolved path. Identical transaction rows remain: matching purchases may be legitimate. Overlapping bank exports can therefore double-count.
+- First keyword rule wins, case-insensitive substring match. Transfers/refunds require manual interpretation; this is not accounting or financial advice.
+- Fail entire report on invalid input; never silently drop malformed rows.
+- Reports are aggregate-only. Output files must not already exist.
+- Conflicting PR/main instructions: prefer latest user request to push; main, no PR or merge.
+- No credentials, telemetry, external calls or .env required.
+- Development tools and build backend need installation for full CI. Do not call configured CI passing before observing its result.
